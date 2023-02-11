@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="email">Nhập email</label>
+  <input id="email" type="email">
+  <br>
+<label for="password">nhap mk</label>
+  <input id="password" type="password">
+  <br>
+  <button id="submit">Sign up</button>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBb0aACTqvpJi_ok5ozwbQhNPH7ayvRaKw",
+      authDomain: "long15js.firebaseapp.com",
+      projectId: "long15js",
+      storageBucket: "long15js.appspot.com",
+      messagingSenderId: "689426330614",
+      appId: "1:689426330614:web:9cd20bc9d2c00fe5808dd7",
+      measurementId: "G-JBJK2Y3H44"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    import { collection, getDocs, getFirestore } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+
+    const db = getFirestore(app);
+
+    const querySnapshot = await getDocs(collection(db,"mysongs"));
+    querySnapshot.forEach((doc) => {
+    console.log(doc.data);
+    });
+    </script>
+
+
+    <!--đăng nhập-->
+    <script type="module">
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+
+    const auth = getAuth();
+
+    function submit(){
+        signInWithEmailAndPassword(auth, "admin@gmail.com", '123456')
+    .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log("Đăng nhập thành công")
+        // ...
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Đăng nhập không thành công")
+        console.log(errorMessage)
+    });
+    }
+
+    document.getElementById("submit").addEventListener("click",submit)
+
+    //Đăng ký
+    
+    function signup(user,password){
+       
+const auth = getAuth();
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+    }
+</script>
+
+
+
+</body>
+</html>
